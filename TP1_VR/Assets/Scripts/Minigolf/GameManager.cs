@@ -107,7 +107,7 @@ namespace Minigolf
             _ended = false;
             _state = MinigolfState.Ready;
             _putter?.ResetPose();
-            SetStatus("Look to aim\nHold button to set power");
+            SetStatus("Look to aim\nHold screen to set power");
             _shot.SetCanShoot(true);
         }
 
