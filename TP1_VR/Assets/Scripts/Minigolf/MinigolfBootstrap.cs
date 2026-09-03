@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Minigolf
 {
@@ -9,8 +10,33 @@ namespace Minigolf
     /// </summary>
     public class MinigolfBootstrap : MonoBehaviour
     {
+        static bool _listeningForSceneLoads;
+
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+        static void ResetStatics()
+        {
+            SceneManager.sceneLoaded -= HandleSceneLoaded;
+            _listeningForSceneLoads = false;
+        }
+
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         static void AutoBootstrap()
+        {
+            if (!_listeningForSceneLoads)
+            {
+                SceneManager.sceneLoaded += HandleSceneLoaded;
+                _listeningForSceneLoads = true;
+            }
+
+            TryBootstrapCurrentScene();
+        }
+
+        static void HandleSceneLoaded(Scene scene, LoadSceneMode mode)
+        {
+            TryBootstrapCurrentScene();
+        }
+
+        static void TryBootstrapCurrentScene()
         {
             if (FindFirstObjectByType<GameManager>() != null)
                 return;
