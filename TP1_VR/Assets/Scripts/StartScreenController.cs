@@ -51,7 +51,7 @@ public class StartScreenController : MonoBehaviour
         canvas.sortingOrder = 100;
 
         var scaler = canvasGo.AddComponent<CanvasScaler>();
-        scaler.dynamicPixelsPerUnit = 10f;
+        scaler.dynamicPixelsPerUnit = 2f;
         canvasGo.AddComponent<GraphicRaycaster>();
 
         var canvasRt = canvasGo.GetComponent<RectTransform>();
@@ -102,19 +102,16 @@ public class StartScreenController : MonoBehaviour
 
         var text = textGo.AddComponent<Text>();
         text.text = "Press screen to play";
-        text.font = Font.CreateDynamicFontFromOSFont(
-            new[] { "Helvetica Neue", "Helvetica", "Arial", "Roboto" }, 54);
+        text.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
         if (text.font == null)
-            text.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
-        text.fontSize = 54;
+            text.font = Resources.GetBuiltinResource<Font>("Arial.ttf");
+        text.fontSize = 48;
         text.fontStyle = FontStyle.Bold;
         text.alignment = TextAnchor.MiddleCenter;
         text.color = Color.white;
         text.horizontalOverflow = HorizontalWrapMode.Wrap;
         text.verticalOverflow = VerticalWrapMode.Overflow;
-        text.resizeTextForBestFit = true;
-        text.resizeTextMinSize = 34;
-        text.resizeTextMaxSize = 62;
+        text.resizeTextForBestFit = false;
 
         var outline = textGo.AddComponent<Outline>();
         outline.effectColor = new Color(0f, 0f, 0f, 0.9f);
