@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace Minigolf
 {
@@ -50,9 +49,9 @@ namespace Minigolf
                 return;
 
             Vector3 aim = GetAimDirection();
-            bool pressed = IsPressDown();
-            bool held = IsPressed();
-            bool released = IsPressUp();
+            bool pressed = VrShotInput.WasPressedThisFrame();
+            bool held = VrShotInput.IsPressed();
+            bool released = VrShotInput.WasReleasedThisFrame();
 
             if (pressed && !_charging)
             {
@@ -98,33 +97,6 @@ namespace Minigolf
             if (forward.sqrMagnitude < 0.0001f)
                 forward = _camera.transform.right;
             return forward.normalized;
-        }
-
-        static bool IsPressed()
-        {
-            var touch = Touchscreen.current;
-            if (touch != null && touch.primaryTouch.press.isPressed)
-                return true;
-            var mouse = Mouse.current;
-            return mouse != null && mouse.leftButton.isPressed;
-        }
-
-        static bool IsPressDown()
-        {
-            var touch = Touchscreen.current;
-            if (touch != null && touch.primaryTouch.press.wasPressedThisFrame)
-                return true;
-            var mouse = Mouse.current;
-            return mouse != null && mouse.leftButton.wasPressedThisFrame;
-        }
-
-        static bool IsPressUp()
-        {
-            var touch = Touchscreen.current;
-            if (touch != null && touch.primaryTouch.press.wasReleasedThisFrame)
-                return true;
-            var mouse = Mouse.current;
-            return mouse != null && mouse.leftButton.wasReleasedThisFrame;
         }
     }
 }

@@ -4,7 +4,7 @@ namespace Minigolf
 {
     /// <summary>
     /// Wires the prison minigolf prototype at runtime from existing scene objects.
-    /// Player stays fixed (XRRig). Aim with head, hold touch/click to charge, release to shoot.
+    /// Player stays fixed (XRRig). Aim with head, hold VR BOX button / touch to charge, release to shoot.
     /// Target: the sideways Vase at the far end of the corridor.
     /// </summary>
     public class MinigolfBootstrap : MonoBehaviour
@@ -49,7 +49,7 @@ namespace Minigolf
             shot.Initialize(ball, aim, putter, camera);
 
             var manager = gameObject.AddComponent<GameManager>();
-            manager.Initialize(ball, shot, putter);
+            manager.Initialize(ball, shot, putter, camera);
 
             if (hole != null)
                 hole.OnBallEntered += manager.NotifyHole;
