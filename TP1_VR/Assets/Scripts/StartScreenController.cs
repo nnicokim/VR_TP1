@@ -40,9 +40,8 @@ public class StartScreenController : MonoBehaviour
         }
 
         var canvasGo = new GameObject("StartScreenCanvas", typeof(RectTransform));
-        canvasGo.transform.SetParent(targetCamera.transform, false);
-        canvasGo.transform.localPosition = new Vector3(0f, 0f, distanceFromCamera);
-        canvasGo.transform.localRotation = Quaternion.identity;
+        canvasGo.transform.position = targetCamera.transform.position + targetCamera.transform.forward * distanceFromCamera;
+        canvasGo.transform.rotation = targetCamera.transform.rotation;
         canvasGo.transform.localScale = Vector3.one * canvasWorldScale;
 
         var canvas = canvasGo.AddComponent<Canvas>();
